@@ -1,5 +1,5 @@
 <section>
-  <h2><%= @dog.name %></h2>
+  <h2 class="text-center"><%= @dog.name %></h2>
   <div class="carousel slide" id="myCarousel">
     <% if @dog.images[0] %>
           <ul class="carousel-indicators">
@@ -13,7 +13,7 @@
             <% if @dog.images[0]%>
               <% @dog.images.each do |image| %>
                 <div class="item <%= 'active' if image == @dog.images[0] %>">          
-                  <%= image_tag url_for(image) %>
+                  <%= image_tag url_for(image), class: "center-block" %>
                 </div>
               <% end %>
              <% end %>

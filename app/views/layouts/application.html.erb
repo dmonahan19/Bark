@@ -18,16 +18,23 @@
   <body class="p-3 mb-2 bg-info text-white">
     <div id="layout">
       <header>
-        <h1><%= link_to 'Dog Profile Demo', root_path %></h1>
-        <div class="actions">
-          <% if current_user %>
-            <%= link_to 'Add your dog', new_dog_path %>
-            <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
-          <% else %>
-            <%= link_to 'Sign in', new_user_session_path %>
-            <%= link_to 'Sign up', new_user_registration_path %>
-          <% end %>
+      <nav class="navbar navbar-light">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#"><h1><%= link_to 'Dog Profile Demo', root_path %></h1></a>
+          </div>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active"><%= link_to 'Home', root_path %></li>
+                <% if current_user %>
+                 <li><%= link_to 'Add your dog', new_dog_path %></li>
+                <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
+                <% else %>
+                  <li><%= link_to 'Sign in', new_user_session_path %></li>
+                  <li><%= link_to 'Sign up', new_user_registration_path %></li>
+                <% end %>
+          </ul>
         </div>
+      </nav>
       </header>
       <div id="main">
         <div class="notifications">

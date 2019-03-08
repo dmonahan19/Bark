@@ -4,8 +4,6 @@ class DogsController < ApplicationController
   # GET /dogs
   # GET /dogs.json
   def index
-    # @dogs = Dog.paginate(:page => params[:page], per_page: 5)
-
     @dogs = Dog.joins(:likes).where("likes.created_at > ?", Time.now - 1.hour).group("dogs.id").order("count(likes.id) DESC") 
     if @dogs.empty?
       @dogs = Dog.all
