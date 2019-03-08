@@ -1,16 +1,17 @@
+require 'will_paginate/array'
 class DogsController < ApplicationController
   # before_action :authenticate_user!, only: [:create, :update, :destroy]
   before_action :set_dog, only: [:show, :edit, :update, :destroy]
   # GET /dogs
   # GET /dogs.json
   def index
-    # @dogs = Dog.joins(:likes).where("likes.created_at > ?", Time.now - 1.hour).group("dogs.id").order("count(likes.id) DESC") 
-    # if @dogs.empty?
-    #   @dogs = Dog.all
-    # else 
-    #     @dogs = @dogs + Dog.all.where('id not in (?)', @dogs.ids)
-    # end
-    @dogs = Dog.paginate(:page => params[:page], :per_page => 5)
+    @dogs = Dog.joins(:likes).where("likes.created_at > ?", Time.now - 1.hour).group("dogs.id").order("count(likes.id) DESC") 
+    if @dogs.empty?
+      @dogs = Dog.all
+    else 
+        @dogs = @dogs + Dog.all.where('id not in (?)', @dogs.ids)
+    end
+    @dogs = @dogs.paginate(:page => params[:page], per_page: 5)
   end
 
   # GET /dogs/1
