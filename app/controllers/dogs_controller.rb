@@ -1,11 +1,18 @@
 class DogsController < ApplicationController
+  # before_action :authenticate_user!, only: [:create, :update, :destroy]
   before_action :set_dog, only: [:show, :edit, :update, :destroy]
-  # before_action :correct_user, only: [:edit, :update, :destroy]
-
   # GET /dogs
   # GET /dogs.json
   def index
-    @dogs = Dog.paginate(:page => params[:page], per_page: 5)
+    # @dogs = Dog.paginate(:page => params[:page], per_page: 5)
+
+    @dogs = Dog.joins(:likes).where("likes.created_at > ?", Time.now - 1.hour).group("dogs.id").order("count(likes.id) DESC") 
+    if @dogs.empty?
+      @dogs = Dog.all
+    else 
+        @dogs = @dogs + Dog.all.where('id not in (?)', @dogs.ids)
+    end
+    @dogs = @dogs.paginate(:page => params[:page], per_page: 5)
   end
 
   # GET /dogs/1
@@ -26,7 +33,7 @@ class DogsController < ApplicationController
   # POST /dogs.json
   def create
     @dog = Dog.new(dog_params)
-
+    @dog.owner_id = current_user.id if current_user
     respond_to do |format|
       if @dog.save
         @dog.images.attach(params[:dog][:image]) if params[:dog][:image].present?
@@ -59,6 +66,7 @@ class DogsController < ApplicationController
   # DELETE /dogs/1
   # DELETE /dogs/1.json
   def destroy
+    set_dog
     @dog.destroy
     respond_to do |format|
       format.html { redirect_to dogs_url, notice: 'Dog was successfully destroyed.' }
@@ -77,7 +85,4 @@ class DogsController < ApplicationController
       params.require(:dog).permit(:name, :description, :owner_id, images: [])
     end
 
-    def correct_user
-      current_user?(@dog.owner_id)  
-    end
 end

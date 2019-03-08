@@ -5,15 +5,16 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+User.delete_all
+Dog.delete_all
 
-
-sarah = User.create!(email: 'sarah23@gmail.com',  password:'password', name: "Sarah")
-jess = User.create!(email: 'Jess54@gmail.com',  password:'password', name: "Jess")
-chris = User.create!(email: 'chris@gmail.com',  password:'password', name: "Chris")
-mike = User.create!(email: 'mike@gmail.com',  password:'password', name: "Mike")
-john = User.create!(email: 'john@gmail.com',  password:'password', name: "John")
-sam = User.create!(email: 'foodcritic@gmail.com', password:'password', name: "Sam")
-casey = User.create!(email: 'chicfashion@gmail.com', password:'password', name: "Casey")
+sarah = User.create!({email: 'sarah23@gmail.com',  password:'password', name: "Sarah"})
+jess = User.create!({email: 'Jess54@gmail.com',  password:'password', name: "Jess"})
+chris = User.create!({email: 'chris@gmail.com',  password:'password', name: "Chris"})
+mike = User.create!({email: 'mike@gmail.com',  password:'password', name: "Mike"})
+john = User.create!({email: 'john@gmail.com',  password:'password', name: "John"})
+sam = User.create!({email: 'foodcritic@gmail.com', password:'password', name: "Sam"})
+casey = User.create!({email: 'chicfashion@gmail.com', password:'password', name: "Casey"})
 
 dogs = [
   {
@@ -25,6 +26,7 @@ dogs = [
     name: 'Brownie',
     description: 'Brownie only sits pretty',
     owner_id: jess.id
+
   },
   {
     name: 'Jax',
@@ -64,7 +66,7 @@ dogs = [
   {
     name: 'Tonks',
     description: 'Tonks loves to run',
-    owner_id: chris.id
+    owner_id: chris.id,
   },
 ]
 

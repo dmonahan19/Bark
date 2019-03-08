@@ -19,6 +19,36 @@ header {
   display: flex;
   justify-content: space-between;
 }
+
+.bone {
+  width: 70px;
+}
+
+li{
+  list-style: none;
+}
+
+.family{
+   position: absolute;
+   width: 100%;
+   top: 482px;
+   left: 29px;
+   margin: 0 auto;
+  font-size: 14px;
+  color: white;
+}
+
+.dog-photo{
+    width: 350px;
+    max-height: 400px;
+    min-height:400px;
+    object-fit: cover;
+
+}
+
+.hidden{
+  display: hidden;
+}
 /* .pagination { 
    padding: 3px;
    margin: 3px; 

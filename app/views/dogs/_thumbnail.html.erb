@@ -1,9 +1,61 @@
-<a href="<%= url_for(dog) %>">
-  <article>
-    <h2 class="dog-name"><%= dog.name %></h2>
-    <%= image_tag url_for(dog.images.first), class: "dog-photo", alt: "Photo of #{dog.name}" %>
-  </article>
-</a>
+ <% if dog_counter % 2 === 0 && dog_counter != 0 %>         
+  <div class="col-lg-4 col-sm-6 col-xs-12">
+        <article class='img-responsive'>
+          <h2 class="dog-name">Sponsered by PetLove</h2>
+          <div class='img-thumbnail'>
+            <%= image_tag("/assets/ad.jpg", :class => "dog-photo")  %>
+          </div>
+        </article>
+      <% if current_user%>
+         <input class='bone' disabled="disabled" src="/assets/bone.png" type="image" />
+          <p>&nbsp;</p>
+          <h2 class='family'>Collar</h2>
+      <% end %>
+  </div>
+<% end %>
+
+<div class="col-lg-4 col-sm-6 col-xs-12">
+ <a href="<%= url_for(dog)%>">
+      <article class='img-responsive'>
+        <h2 class="dog-name"><%= dog.name %></h2>
+        <div class='img-thumbnail'>
+          <%= image_tag url_for(dog.images.first), alt: "Photo of #{dog.name}", class: 'dog-photo'%>
+        </div>
+      </article>
+  </a>
+  <% if current_user%>
+    <% if !current_user?(dog.owner_id) %>
+      <% pre_like = dog.likes.find { |like| like.liker_id == current_user.id} %>
+        <% if pre_like %>
+          <form action="<%= dog_likes_url(dog) %>" method="post">
+                <input
+                  type="hidden"
+                  name="authenticity_token"
+                  value="<%= form_authenticity_token %>">
+                <input type="hidden" name="_method" value="delete">
+                  <button type="submit" class="btn btn-primary">Unlike</button>
+            </form>
+        <% else %>
+            <form action="<%= dog_likes_url(dog) %>" method="post">
+            <input
+                  type="hidden"
+                  name="authenticity_token"
+                  value="<%= form_authenticity_token %>"> 
+            <button type="submit" class="btn btn-primary">Like</button>
+            </form>
+        <% end %>
+      <p><%= dog.likes.count %> <%= (dog.likes.count) == 1 ? 'Like' : 'Likes'%></p>
+    <% else %>
+      <input class='bone' disabled="disabled" src="/assets/bone.png" type="image" />
+      <p><%= dog.likes.count %> <%= (dog.likes.count) == 1 ? 'Like' : 'Likes'%></p>
+      <h2 class='family'>Family</h2>
+    <% end %>
+  <% end %>
+</div>
+
+
+
+
 
 
 

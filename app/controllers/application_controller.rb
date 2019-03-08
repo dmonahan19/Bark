@@ -1,8 +1,10 @@
 class ApplicationController < ActionController::Base
-    helper_method  :current_user, :current_user?
+    helper_method  :current_user?
 
     def current_user?(userId)
-        userId == current_user.id
+        return userId == current_user.id if current_user 
+        false
      end
+
 
 end

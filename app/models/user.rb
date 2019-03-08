@@ -29,4 +29,10 @@ class User < ApplicationRecord
     primary_key: :id,
     class_name: :Dog
 
+  has_many :likes,
+    primary_key: :id,
+    foreign_key: :liker_id,
+    class_name: :Like,
+    dependent: :destroy
+
 end

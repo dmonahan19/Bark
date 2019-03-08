@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'byebug'
 
 RSpec.describe DogsController, type: :controller do
   describe '#index' do

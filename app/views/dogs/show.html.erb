@@ -1,14 +1,49 @@
 <section>
   <h2><%= @dog.name %></h2>
+  <div class="carousel slide" id="myCarousel">
+    <% if @dog.images[0] %>
+          <ul class="carousel-indicators">
+            <% @dog.images.each do |image| %>
+                <li data-target="#myCarousel" data-slide-to="<%= image %>"></li>
+            <% end %>
+          </ul>  
+        <% end %>  
 
-  <% @dog.images.each do |image| %>
-    <%= image_tag url_for(image), alt: "Photo of #{@dog.name}" %>
-  <% end %>
+        <div class="carousel-inner" role="listbox">
+            <% if @dog.images[0]%>
+              <% @dog.images.each do |image| %>
+                <div class="item <%= 'active' if image == @dog.images[0] %>">          
+                  <%= image_tag url_for(image) %>
+                </div>
+              <% end %>
+             <% end %>
+       </div>
+              <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                 </a>
+                   <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                     <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+
+
+
 
   <p><%= @dog.description %></p>
 <% if current_user?(@dog.owner_id) %>
     <%= link_to "Edit #{@dog.name}'s Profile", edit_dog_path %>
     <br>
-    <%= link_to "Delete #{@dog.name}'s Profile", dog_path, method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
+<%= link_to "Delete #{@dog.name}'s Profile", dog_path, method: :delete, data: { confirm: 'Are you sure?' } %>
 </section>
+
+  
+
+
+
+  
